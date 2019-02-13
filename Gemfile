@@ -44,6 +44,9 @@ group :development, :test do
   # Use PG as the database for Active Record
   gem 'pg', '~> 0.21'
 
+  # Use sqlite3 as the database for Active Record
+  gem 'sqlite3', '~> 1.3.13'
+
   # Access an IRB console on exception pages or by using <%= console %> in views
   gem 'web-console', '~> 2.0'
 
