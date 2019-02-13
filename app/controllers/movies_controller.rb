@@ -11,15 +11,22 @@ class MoviesController < ApplicationController
   end
 
   def index
-    if params[:sort_name].eql?('true')
+    sort_name = params[:sort_name]
+    sort_date = params[:sort_date]
+    # logger.info "Processing the request..."
+    
+    @sort_name = false
+    @sort_name = false
+    if sort_name.eql?("true")
       @movies = Movie.order(:title)
+      @sort_name = true
+    elsif sort_date.eql?("true")
+      @movies = Movie.order(:release_date)
+      @sort_date = true
+    else
+      @movies = Movie.all  
     end
     
-    if params[:sort_date].eql?('true')
-      @movies = Movie.order(:release_date)
-    end  
-
-    @movies = Movie.all
   end
 
   def new
