@@ -11,11 +11,11 @@ class MoviesController < ApplicationController
   end
 
   def index
-    if params[:sort_name] == "true"
+    if params[:sort_name].eql?('true')
       @movies = Movie.order(:title)
     end
     
-    if params[:sort_date] =="true"
+    if params[:sort_date].eql?('true')
       @movies = Movie.order(:release_date)
     end  
 
