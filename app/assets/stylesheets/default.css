@@ -44,7 +44,7 @@ h1 {
   font-weight: bold;
   background-color: wheat;
 }
-#movies th, table#movies td {
+#movies th, #movies td {
   padding: 4px;
   text-align: left;
 }
