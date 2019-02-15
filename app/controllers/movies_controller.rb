@@ -11,22 +11,38 @@ class MoviesController < ApplicationController
   end
 
   def index
-    sort_name = params[:sort_name]
-    sort_date = params[:sort_date]
     # logger.info "Processing the request..."
     
-    @sort_name = false
-    @sort_name = false
-    if sort_name.eql?("true")
-      @movies = Movie.order(:title)
-      @sort_name = true
-    elsif sort_date.eql?("true")
-      @movies = Movie.order(:release_date)
-      @sort_date = true
-    else
-      @movies = Movie.all  
+    # initialize variables
+    if(params.has_key?(:sort_order))
+      sort_order = params[:sort_order]
+      @sort_order =sort_order
     end
     
+    # check if ratings params is present otherwise show all ratings from db
+    all_ratings = Movie.uniq.pluck(:rating) # get all ratings
+    user_selected_ratings = []
+    all_ratings_tmp = {}
+    if(params.has_key?(:ratings))
+      all_ratings.each do |key|
+        all_ratings_tmp[key] =  false
+        if params[:ratings].include? key
+          user_selected_ratings.push(key)
+          all_ratings_tmp[key] = true
+        end
+      end
+      @all_ratings = all_ratings_tmp
+    else
+      # by default show all ratings
+      user_selected_ratings = Movie.uniq.pluck(:rating)
+      all_ratings.each do |key|
+        all_ratings_tmp[key] =  true
+      end
+      @all_ratings = all_ratings_tmp
+    end
+    
+    #retrieve movies according to params
+    @movies = Movie.with_ratings(user_selected_ratings, sort_order)
   end
 
   def new
