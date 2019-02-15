@@ -13,9 +13,9 @@
     %tr
       // %th= link_to "Movie Title", movie_path(sort_name: "true")
   
-      %th{:class=>("select" if @sort_order == 'name')}= link_to "Movie Title", "/movies?sort_order=name"
+      %th{:class=>("select" if session[:sort_order] == 'name')}= link_to "Movie Title", "/movies?sort_order=name"
       %th Rating
-      %th{:class=>("select" if @sort_order == 'date')}= link_to "Release Date", "/movies?sort_order=date"
+      %th{:class=>("select" if session[:sort_order] == 'date')}= link_to "Release Date", "/movies?sort_order=date"
       // %th= link_to "Release Date", movie_path(sort_date: "true")
       %th More Info
   %tbody
